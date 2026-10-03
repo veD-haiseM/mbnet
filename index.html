@@ -35,7 +35,7 @@
           rgba(0, 77, 0, 0.1) 1px,
           transparent 1px
         );
-      background-size: 40px 40px; /* Adjust the size of the pattern */
+      background-size: 40px 40px;
       position: relative;
     }
  
@@ -47,25 +47,79 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8); /* Dark overlay to make the pattern faint */
+      background: rgba(0, 0, 0, 0.8);
       z-index: -1;
     }
       
-    /* Image Placeholder */
-    .card img {
+    /* Card Image Fade Slider */
+    .card-slider {
+      position: relative;
       width: 100%;
       height: 200px;
-      object-fit: cover;
-      border: 1px solid rgba(0, 255, 0, 0.3);
-      border-radius: 10px;
       margin-bottom: 10px;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      background: #000;
     }
 
-    .card img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    .card-slider img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+      cursor: pointer;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .card-slider img.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .card-slider:hover img.active {
+      transform: scale(1.03);
+      transition: opacity 0.6s ease-in-out, transform 0.3s ease;
+    }
+
+    /* Card Image Control Buttons */
+    .card-control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      color: #00ff00;
+      padding: 6px 10px;
+      cursor: pointer;
+      z-index: 10;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      opacity: 0.7;
+      transition: opacity 0.3s ease, background 0.3s ease;
+    }
+
+    .card-slider:hover .card-control {
+      opacity: 1;
+    }
+
+    .card-control.prev {
+      left: 8px;
+    }
+
+    .card-control.next {
+      right: 8px;
+    }
+
+    .card-control:hover {
+      background: rgba(0, 255, 0, 0.4);
+      color: #fff;
     }
       
     /* Enlarged Image Overlay */
@@ -84,9 +138,26 @@
 
     .overlay img {
       max-width: 90%;
-      max-height: 90%;
+      max-height: 80%;
       border: 2px solid rgba(0, 255, 0, 0.5);
       border-radius: 10px;
+      object-fit: contain;
+    }
+
+    .overlay-caption {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      text-align: center;
+      max-width: 90%;
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      z-index: 1001;
     }
 
     .overlay.active {
@@ -105,7 +176,7 @@
           rgba(255, 0, 0, 0.1) 1px,
           transparent 1px
         );
-      background-size: 40px 40px; /* Adjust the size of the pattern */
+      background-size: 40px 40px;
       position: relative;
     }
  
@@ -116,7 +187,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8); /* Dark overlay to make the pattern faint */
+      background: rgba(0, 0, 0, 0.8);
       z-index: -1;
     }
  
@@ -127,7 +198,7 @@
       -webkit-text-fill-color: transparent;
     }
  
-        /* Header */
+    /* Header */
     header {
       background: rgba(10, 10, 10, 0.8);
       backdrop-filter: blur(10px);
@@ -149,16 +220,16 @@
       grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
       gap: 2px;
       padding: 4px;
-      z-index: 1; /* Behind the title */
-      pointer-events: none; /* Ensure clicks pass through to the title */
+      z-index: 1;
+      pointer-events: none;
     }
 
     .binary-overlay span {
-      color: rgba(0, 77, 0, 0.5); /* Dark green */
+      color: rgba(0, 110, 0, 0.5);
       font-size: 0.8rem;
       font-family: monospace;
       text-align: center;
-      user-select: none; /* Prevent text selection */
+      user-select: none;
     }
 
     /* Title */
@@ -166,7 +237,7 @@
       font-size: 3rem;
       animation: glow 2s infinite alternate, glitch 2s infinite;
       position: relative;
-      z-index: 2; /* Above the binary overlay */
+      z-index: 2;
     }
  
     /* Neon Glow Animation */
@@ -228,7 +299,7 @@
     .carousel-item {
       min-width: 100%;
       box-sizing: border-box;
-      padding: 20px 60px; /* Increased padding on the left and right */
+      padding: 20px 60px;
       text-align: center;
       cursor: pointer;
     }
@@ -270,7 +341,7 @@
     .container {
       max-width: 1200px;
       margin: 20px auto;
-      padding: 20px;
+      padding: 0 20px 20px 20px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
@@ -405,53 +476,93 @@
   <div class="container">
     <!-- Card 1 -->
     <div class="card red-pattern" id="card-0">
-        <img src="imgs/Ne0Bot3.2lol.gif" alt="Image of Ne0Bot 3.2" onclick="enlargeImage(this)">
+      <div class="card-slider">
+        <img src="imgs/Ne0Bot3.2lol.gif" alt="Image of Ne0Bot 3.2" class="active" onclick="enlargeImage(this)">
+		<img src="imgs/ne0bot2.1scfreak.jpg" alt="Image of Ne0Bot2.1 download link on scfreak" onclick="enlargeImage(this)">
+		<img src="imgs/bastardbot.gif" alt="Image of BaSTaRD Bot (hexed to Roman Chat)" onclick="enlargeImage(this)">
+        <img src="imgs/vlbbot.gif" alt="Image of vLBBot 1.0(hexed to Ne0Bot 2.1)" onclick="enlargeImage(this)">
+		<button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+      </div>
       <h2>Roman Chat, Roman Binary Bot Plugin, Ne0Bot</h2>
-      <p>My first public releases were hex edited bots from other authors XD</p>
+      <p>My first public releases were hex edited bots and *borrowed* source code from other authors XD</p>
     </div>
  
     <!-- Card 2 -->
     <div class="card red-pattern" id="card-1">
-        <img src="imgs/mbbot1.gif" alt="Image of MBBot" onclick="enlargeImage(this)">
+      <div class="card-slider">
+        <img src="imgs/mbbot1.gif" alt="Image of MBBot" class="active" onclick="enlargeImage(this)">
+        <img src="imgs/MBBot.png" alt="Image of MBBot splash/loading screen" onclick="enlargeImage(this)">
+        <button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+      </div>
       <h2>MBBot</h2>
-        <p>My first scratch built battle.net binary chat bot.</p>
+      <p>My first scratch built battle.net binary chat bot. I could code but still hadn't learned photoshop :P</p>
     </div>
  
     <!-- Card 3 -->
     <div class="card red-pattern" id="card-2">
-        <img src="imgs/buddhabot2020.jpg" alt="Image of Buddha Bot" onclick="enlargeImage(this)">
+      <div class="card-slider">
+        <img src="imgs/buddhabot2020.jpg" alt="Image of Buddha Bot" class="active" onclick="enlargeImage(this)">
+        <img src="imgs/aincphactorx1.jpg" alt="Image of the archived remnants of the phactorx website" onclick="enlargeImage(this)">
+        <img src="imgs/key.JPG" alt="Image of Botkey Creator, used to combat Blizzard's harassment" onclick="enlargeImage(this)">
+		<img src="imgs/aincgreen.gif" alt="Image of the green aINC logo" onclick="enlargeImage(this)">
+		<img src="imgs/ainc404.png" alt="Image of the custom 404 page error" onclick="enlargeImage(this)">
+		<button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+      </div>
       <h2>BuddhaBot!</h2>
-      <p>Me and at0m team up to create a stunning full-featured bot that would truly stand out in the face of blizzard's efforts to ban chat bots.</p>
+      <p>at0m and I team up to create Buddhabot! and the aINC community to push back against blizzard's efforts to ban chat bots.</p>
     </div>
  
     <!-- Card 4 -->
     <div class="card red-pattern" id="card-3">
-        <img src="imgs/dgmbot.jpg" alt="Image of diablo1gamebot" onclick="enlargeImage(this)">
-      <h2>XBot, diablo1gamebot, EZBot, RaiFlood</h2>
-      <p>With bot development peaking, I have a few projects that are mostly made with the community in mind (some helpful, some nefarious). Many cdkeys got banned in those days, so I needed new ones :-P</p>
+      <div class="card-slider">
+        <img src="imgs/dgmbot.jpg" alt="Image of diablo1gamebot" class="active" onclick="enlargeImage(this)">
+        <img src="imgs/RaiFloodlol.jpg" alt="Image of RaiFlood" onclick="enlargeImage(this)">
+		<img src="imgs/mesiahbotmain.JPG" alt="Image of MesiahBot" onclick="enlargeImage(this)">
+		<img src="imgs/vlaim.jpg" alt="Image of AIM/OSCAR development board on vL forums" onclick="enlargeImage(this)">
+        <img src="imgs/sb01.png" alt="Image of SentryBot, showing Eurijk!, me, Moonshine, Zorm" onclick="enlargeImage(this)">
+		<button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+      </div>
+      <h2>XBot, diablo1gamebot, EZBot, RaiFlood, MesiahBot</h2>
+      <p>Bot development was peaking. My projects are mostly made with the community in mind. Some nefarious (sorry Raihan!). I also made an AIM<->Battle.net client (MesiahBot), with SmarterChild style AI!</p>
     </div>
  
     <!-- Card 5 -->
     <div class="card red-pattern" id="card-4">
-        <img src="imgs/w2gatesub.jpg" alt="Image of War2 Gate" onclick="enlargeImage(this)">
+      <div class="card-slider">
+        <img src="imgs/w2gatesub.jpg" alt="Image of War2 Gate running Subbot" class="active" onclick="enlargeImage(this)">
+        <img src="imgs/war2gateher.png" alt="Image of War2 Gate running Heresy Bot" onclick="enlargeImage(this)">
+        <button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+      </div>
       <h2>War2 Gate, ModuleBot</h2>
       <p>After a long hiatus, I return to create new projects with longevity in mind.</p>
     </div>
  
     <!-- Card 6 -->
     <div class="card red-pattern" id="card-5">
-        <img src="imgs/stonerbotdlx2.jpg" alt="Image of StonerBot" onclick="enlargeImage(this)">
+      <div class="card-slider">
+        <img src="imgs/stonerbotdlx2.jpg" alt="Image of StonerBot" class="active" onclick="enlargeImage(this)">
+        <img src="imgs/stonerbotdlx1.jpg" alt="Image of StonerBot" onclick="enlargeImage(this)">
+		<img src="imgs/stonerbotconfig11.png" alt="Image of StonerBot configurations" onclick="enlargeImage(this)">
+		<img src="imgs/stonerbotgames.jpg" alt="Image of StonerBot games console" onclick="enlargeImage(this)">
+		<button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+      </div>
       <h2>StonerBot</h2>
-      <p>My last battle.net project inspired by some of the dopest people on bnet!</p>
+      <p>My last battle.net project. Longevity focused & inspired by some of the dopest people on bnet! Fully featured, it even includes StonerMode for cool color shifting effects and a "tech support bot" troll AI with a stoner persona XD</p>
     </div>
   </div>
  
   <footer class="green-line">
-    <p>&copy; haiseM 2025. All rights reserved.</p>
+    <p>&copy; 1337. All rights reserved.</p>
   </footer>
  
   <script>
-    // Carousel Functionality
+    // Top Carousel Functionality
     let currentSlide = 0;
     const slides = document.querySelectorAll('.carousel-item');
     const totalSlides = slides.length;
@@ -471,7 +582,7 @@
       showSlide(currentSlide);
     }
  
-    // Auto-advance carousel every 6 seconds
+    // Auto-advance top carousel every 6 seconds
     setInterval(nextSlide, 6000);
  
     // Scroll to Corresponding Card
@@ -482,6 +593,33 @@
       }
     }
 
+    // Card Image Fade Slide Controller (manual buttons)
+    function changeCardSlide(button, direction) {
+      const slider = button.closest('.card-slider');
+      const images = slider.querySelectorAll('img');
+      let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+      
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + direction + images.length) % images.length;
+      images[currentIndex].classList.add('active');
+    }
+
+    // Auto-advance card sliders with staggered timing intervals (no simultaneous flashing)
+    const cardSliders = document.querySelectorAll('.card-slider');
+    cardSliders.forEach((slider, index) => {
+      // Base interval of ~5.5s, with a 700ms stagger per card so they drift out of sync organically
+      const intervalTime = 5500 + (index * 700); 
+
+      setInterval(() => {
+        const images = slider.querySelectorAll('img');
+        let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+        
+        images[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].classList.add('active');
+      }, intervalTime);
+    });
+
     // Function to generate random binary digits (0 or 1)
     function getRandomBinary() {
       return Math.random() > 0.5 ? '0' : '1';
@@ -490,8 +628,8 @@
     // Function to create the binary overlay
     function createBinaryOverlay() {
       const overlay = document.getElementById('binary-overlay');
-      const columns = Math.floor(window.innerWidth / 30); // Adjust spacing
-      const rows = Math.floor(window.innerHeight / 30); // Adjust spacing
+      const columns = Math.floor(window.innerWidth / 30);
+      const rows = Math.floor(window.innerHeight / 30);
  
       for (let i = 0; i < columns * rows; i++) {
         const span = document.createElement('span');
@@ -501,26 +639,30 @@
     }
       
     // Function to enlarge an image
-      function enlargeImage(img) {
-        const overlay = document.querySelector('.overlay');
-        const overlayImg = overlay.querySelector('img');
-        overlayImg.src = img.src;
-        overlay.classList.add('active');
-      }
+    function enlargeImage(img) {
+      const overlay = document.querySelector('.overlay');
+      const overlayImg = overlay.querySelector('img');
+      const overlayCaption = overlay.querySelector('.overlay-caption');
+      
+      overlayImg.src = img.src;
+      overlayCaption.textContent = img.alt || '';
+      overlay.classList.add('active');
+    }
 
-      // Function to close the overlay
-      function closeOverlay() {
-        const overlay = document.querySelector('.overlay');
-        overlay.classList.remove('active');
-      }
+    // Function to close the overlay
+    function closeOverlay() {
+      const overlay = document.querySelector('.overlay');
+      overlay.classList.remove('active');
+    }
  
     // Generate the binary overlay on page load
     window.addEventListener('load', createBinaryOverlay);
   </script>
 
-    <!-- Enlarged Image Overlay -->
+  <!-- Enlarged Image Overlay -->
   <div class="overlay" onclick="closeOverlay()">
     <img src="" alt="Enlarged Image">
+    <div class="overlay-caption"></div>
   </div>
 </body>
 </html>
