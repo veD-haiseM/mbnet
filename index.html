@@ -294,14 +294,19 @@
     .carousel-inner {
       display: flex;
       transition: transform 0.5s ease;
+      align-items: stretch;
     }
  
     .carousel-item {
       min-width: 100%;
       box-sizing: border-box;
-      padding: 20px 60px;
+      padding: 24px 55px;
       text-align: center;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
  
     .carousel-item h2 {
@@ -557,7 +562,7 @@
   </div>
  
   <footer class="green-line">
-    <p>&copy; 1337. All rights reserved.</p>
+    <p>&copy; Newtons 3rd Law - 1337. All rights reserved.</p>
   </footer>
  
   <script>
@@ -603,21 +608,32 @@
       images[currentIndex].classList.add('active');
     }
 
-    // Auto-advance card sliders with staggered timing intervals (no simultaneous flashing)
-    const cardSliders = document.querySelectorAll('.card-slider');
-    cardSliders.forEach((slider, index) => {
-      // Base interval of ~5.5s, with a 700ms stagger per card so they drift out of sync organically
-      const intervalTime = 5500 + (index * 700); 
+    // Card Slider Fading Control with Pause/Resume Management
+    let sliderIntervals = [];
 
-      setInterval(() => {
-        const images = slider.querySelectorAll('img');
-        let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
-        
-        images[currentIndex].classList.remove('active');
-        currentIndex = (currentIndex + 1) % images.length;
-        images[currentIndex].classList.add('active');
-      }, intervalTime);
-    });
+    function startCardSliders() {
+      stopCardSliders(); // Clear any existing intervals first
+      const cardSliders = document.querySelectorAll('.card-slider');
+      cardSliders.forEach((slider, index) => {
+        const intervalTime = 5500 + (index * 700); 
+
+        const intervalId = setInterval(() => {
+          const images = slider.querySelectorAll('img');
+          let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+          
+          images[currentIndex].classList.remove('active');
+          currentIndex = (currentIndex + 1) % images.length;
+          images[currentIndex].classList.add('active');
+        }, intervalTime);
+
+        sliderIntervals.push(intervalId);
+      });
+    }
+
+    function stopCardSliders() {
+      sliderIntervals.forEach(id => clearInterval(id));
+      sliderIntervals = [];
+    }
 
     // Function to generate random binary digits (0 or 1)
     function getRandomBinary() {
@@ -639,6 +655,7 @@
       
     // Function to enlarge an image
     function enlargeImage(img) {
+      stopCardSliders(); // Pause card slider fading when image is enlarged
       const overlay = document.querySelector('.overlay');
       const overlayImg = overlay.querySelector('img');
       const overlayCaption = overlay.querySelector('.overlay-caption');
@@ -652,10 +669,14 @@
     function closeOverlay() {
       const overlay = document.querySelector('.overlay');
       overlay.classList.remove('active');
+      startCardSliders(); // Resume card slider fading when overlay is closed
     }
  
-    // Generate the binary overlay on page load
-    window.addEventListener('load', createBinaryOverlay);
+    // Initialize binary overlay and card sliders on page load
+    window.addEventListener('load', () => {
+      createBinaryOverlay();
+      startCardSliders();
+    });
   </script>
 
   <!-- Enlarged Image Overlay -->
