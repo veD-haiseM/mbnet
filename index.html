@@ -682,7 +682,7 @@
       }
     }
 
-    // Matrix Rain Effect Implementation (Rising from Bottom to Top)
+    // Matrix Rain Effect Implementation (Wider speed range: slower minimum, faster maximum)
     const matrixCanvas = document.getElementById('matrix-canvas');
     const matrixCtx = matrixCanvas.getContext('2d');
     let matrixDrops = [];
@@ -700,8 +700,8 @@
       for (let i = 0; i < numCols; i++) {
         matrixDrops[i] = {
           x: i * colWidth + 10,
-          y: matrixCanvas.height + Math.random() * matrixCanvas.height, // Start below or along the bottom
-          speed: Math.random() * 0.5 + 0.8,
+          y: matrixCanvas.height + Math.random() * matrixCanvas.height,
+          speed: Math.random() * 0.7 + 0.3, // Speed ranges from 0.3 (slow) up to 1.0 (fast)
           length: Math.floor(Math.random() * 10) + 12
         };
       }
@@ -716,31 +716,29 @@
         const drop = matrixDrops[i];
 
         for (let j = 0; j < drop.length; j++) {
-          // Head is at drop.y (moving up), trail elements stack downward below the head
           const charY = drop.y + (j * matrixFontSize);
 
           if (charY >= -matrixFontSize && charY <= matrixCanvas.height + matrixFontSize) {
-            // Minimum opacity set to 0.5 matching the header overlay, capping brightness at the head
             const alpha = Math.max(0.5, 1.0 - (j / drop.length) * 0.5);
 
             if (j === 0) {
-              matrixCtx.fillStyle = `rgba(150, 255, 150, ${alpha})`; // Leading head (now at top of stream)
+              matrixCtx.fillStyle = `rgba(150, 255, 150, ${alpha})`;
             } else {
               matrixCtx.fillStyle = `rgba(0, 180, 0, ${alpha})`;
             }
 
-            const char = (Math.abs(Math.sin(i + charY)) > 0.5) ? '1' : '0';
+            const char = (Math.abs(Math.sin(i * 99 + charY * 0.05)) > 0.5) ? '1' : '0';
             matrixCtx.fillText(char, drop.x, charY);
           }
         }
 
-        // Move upward by decreasing y coordinate
-        drop.y -= drop.speed * 1.5;
+        // Move upward steadily based on individual speed
+        drop.y -= drop.speed;
 
         // Reset drop to bottom when it scrolls past the top edge
         if (drop.y + (drop.length * matrixFontSize) < 0) {
           drop.y = matrixCanvas.height + Math.floor(Math.random() * 200) + 50;
-          drop.speed = Math.random() * 0.5 + 0.8;
+          drop.speed = Math.random() * 0.7 + 0.3;
           drop.length = Math.floor(Math.random() * 10) + 12;
         }
       }
