@@ -263,6 +263,41 @@
       position: relative;
       z-index: 2;
     }
+
+    /* Glitching Enclosing Symbols with Locked Layout Footprint (Solid Red Only Theme) */
+    header h1 .glitch-symbol {
+      font-size: 1.1em;
+      display: inline-block;
+      width: 1.2em;
+      text-align: center;
+      vertical-align: middle;
+      position: relative;
+      top: -3px;
+      font-family: monospace;
+      margin: 0 1px;
+      background: none;
+      -webkit-background-clip: initial;
+    }
+
+    header h1 .glitch-symbol.state-1 {
+      color: #ff0000;
+      -webkit-text-fill-color: #ff0000;
+      text-shadow: 0 0 4px #ff0000, 0 0 6px #ff0000;
+      opacity: 0.85;
+      visibility: visible;
+    }
+
+    header h1 .glitch-symbol.state-2 {
+      visibility: hidden; /* Preserves exact box dimensions without reflow */
+    }
+
+    header h1 .glitch-symbol.state-3 {
+      color: #ff3333;
+      -webkit-text-fill-color: #ff3333;
+      text-shadow: 0 0 8px #ff0000, 0 0 15px #ff0000, 0 0 25px #ff3333;
+      opacity: 1;
+      visibility: visible;
+    }
  
     /* Neon Glow Animation */
     @keyframes glow {
@@ -478,8 +513,12 @@
   <header class="red-pattern">
     <!-- Binary Overlay -->
     <div class="binary-overlay" id="binary-overlay"></div>
-    <!-- Title -->
-    <h1>Mesiah's Legacy Bnet Projects</h1>
+    <!-- Title with Glitching Enclosing Symbols -->
+    <h1>
+      <span id="glitch-symbol-left" class="glitch-symbol"></span>
+      Mesiah's Legacy Bnet Projects
+      <span id="glitch-symbol-right" class="glitch-symbol"></span>
+    </h1>
   </header>
  
   <!-- Matrix Rain Wrapper (Spans from just under header to just above footer) -->
@@ -701,6 +740,43 @@
       }
     }
 
+    // Glitching Enclosing Symbols Effect
+    const symbolPairs = [
+      ['<', '>'],
+      ['(', ')'],
+      ['{', '}'],
+      ['[', ']']
+    ];
+
+    function updateGlitchSymbols() {
+      const leftSpan = document.getElementById('glitch-symbol-left');
+      const rightSpan = document.getElementById('glitch-symbol-right');
+      if (!leftSpan || !rightSpan) return;
+
+      // Randomly pick one of 3 states:
+      // 1: Present/On, 2: Off/Blank, 3: Present/On + Brighter/Glow
+      const state = Math.floor(Math.random() * 3) + 1;
+
+      // Pick a random symbol pair
+      const pair = symbolPairs[Math.floor(Math.random() * symbolPairs.length)];
+      leftSpan.textContent = pair[0];
+      rightSpan.textContent = pair[1];
+
+      if (state === 1) {
+        leftSpan.className = 'glitch-symbol state-1';
+        rightSpan.className = 'glitch-symbol state-1';
+      } else if (state === 2) {
+        leftSpan.className = 'glitch-symbol state-2';
+        rightSpan.className = 'glitch-symbol state-2';
+      } else {
+        leftSpan.className = 'glitch-symbol state-3';
+        rightSpan.className = 'glitch-symbol state-3';
+      }
+    }
+
+    // Run interval for glitching symbols
+    setInterval(updateGlitchSymbols, 180);
+
     // Matrix Rain Effect (Wider speed range: slower minimum, faster maximum)
     const matrixCanvas = document.getElementById('matrix-canvas');
     const matrixCtx = matrixCanvas.getContext('2d');
@@ -790,6 +866,7 @@
       resizeMatrixCanvas();
       requestAnimationFrame(drawMatrixRain);
       startCardSliders();
+      updateGlitchSymbols();
     });
 
     window.addEventListener('resize', () => {
