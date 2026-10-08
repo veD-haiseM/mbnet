@@ -51,6 +51,30 @@
       z-index: -1;
     }
       
+    /* Matrix Rain Effect Container */
+    .matrix-rain-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #matrix-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Ensure carousel and container sit above the canvas rain */
+    .matrix-rain-wrapper > .carousel,
+    .matrix-rain-wrapper > .container {
+      position: relative;
+      z-index: 1;
+    }
+
     /* Card Image Fade Slider */
     .card-slider {
       position: relative;
@@ -439,130 +463,135 @@
     <h1>Mesiah's Legacy Bnet Projects</h1>
   </header>
  
-  <!-- Top Carousel -->
-  <div class="carousel red-pattern">
-    <div class="carousel-inner">
-      <!-- Slide 1 -->
-      <div class="carousel-item" onclick="scrollToCard(0)">
+  <!-- Matrix Rain Wrapper (Spans from just under header to just above footer) -->
+  <div class="matrix-rain-wrapper">
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Top Carousel -->
+    <div class="carousel red-pattern">
+      <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item" onclick="scrollToCard(0)">
+          <h2>Roman Chat, Roman Binary Bot Plugin, Ne0Bot</h2>
+          <p>My first public releases were hex edited bots and *borrowed* source code from other authors XD</p>
+        </div>
+        <!-- Slide 2 -->
+        <div class="carousel-item" onclick="scrollToCard(1)">
+          <h2>MBBot</h2>
+          <p>My first scratch built battle.net binary chat bot. I could code but still hadn't learned photoshop :P</p>
+        </div>
+        <!-- Slide 3 -->
+        <div class="carousel-item" onclick="scrollToCard(2)">
+          <h2>BuddhaBot!</h2>
+          <p>at0m and I team up to create BuddhaBot! and the aINC community to push back against blizzard's efforts to ban chat bots.</p>
+        </div>
+        <!-- Slide 4 -->
+        <div class="carousel-item" onclick="scrollToCard(3)">
+          <h2>XBot, diablo1gamebot, EZChat, RaiFlood, MesiahBot</h2>
+          <p>Bot development was peaking. I joined in community projects, and even made a foundational AIM/Bnet hybrid client (MesiahBot), with SmarterChild style AI that could launch exploit attacks against AIM users who were rude in chat, causing them to disconnect!</p>
+        </div>
+        <!-- Slide 5 -->
+        <div class="carousel-item" onclick="scrollToCard(4)">
+          <h2>War2 Gate, ModuleBot</h2>
+          <p>After a long hiatus, I return to create new projects with longevity in mind.</p>
+        </div>
+        <!-- Slide 6 -->
+        <div class="carousel-item" onclick="scrollToCard(5)">
+          <h2>StonerBot</h2>
+          <p>My last battle.net project. Longevity focused & inspired by some of the dopest people on bnet! Fully featured, it even includes StonerMode for cool color shifting effects and a "tech support bot" troll AI with a stoner persona XD</p>
+        </div>
+      </div>
+      <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+      <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+    </div>
+   
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Card 1 -->
+      <div class="card red-pattern" id="card-0">
+        <div class="card-slider">
+          <img src="imgs/Ne0Bot3.2lol.gif" alt="Image of Ne0Bot 3.2" class="active" onclick="enlargeImage(this)">
+          <img src="imgs/ne0bot2.1scfreak.jpg" alt="Image of Ne0Bot2.1 download link on scfreak" onclick="enlargeImage(this)">
+          <img src="imgs/bastardbot.gif" alt="Image of BaSTaRD Bot (hexed to Roman Chat)" onclick="enlargeImage(this)">
+          <img src="imgs/vlbbot.gif" alt="Image of vLBBot 1.0(hexed to Ne0Bot 2.1)" onclick="enlargeImage(this)">
+          <button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+          <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+        </div>
         <h2>Roman Chat, Roman Binary Bot Plugin, Ne0Bot</h2>
         <p>My first public releases were hex edited bots and *borrowed* source code from other authors XD</p>
       </div>
-      <!-- Slide 2 -->
-      <div class="carousel-item" onclick="scrollToCard(1)">
+   
+      <!-- Card 2 -->
+      <div class="card red-pattern" id="card-1">
+        <div class="card-slider">
+          <img src="imgs/mbbot1.gif" alt="Image of MBBot" class="active" onclick="enlargeImage(this)">
+          <img src="imgs/MBBot.png" alt="Image of MBBot splash/loading screen" onclick="enlargeImage(this)">
+          <button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+          <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+        </div>
         <h2>MBBot</h2>
         <p>My first scratch built battle.net binary chat bot. I could code but still hadn't learned photoshop :P</p>
       </div>
-      <!-- Slide 3 -->
-      <div class="carousel-item" onclick="scrollToCard(2)">
+   
+      <!-- Card 3 -->
+      <div class="card red-pattern" id="card-2">
+        <div class="card-slider">
+          <img src="imgs/buddhabot2020.jpg" alt="Image of Buddha Bot" class="active" onclick="enlargeImage(this)">
+          <img src="imgs/aincphactorx1.jpg" alt="Image of the archived remnants of the phactorx website" onclick="enlargeImage(this)">
+          <img src="imgs/ainc404.png" alt="Image of the custom 404 page error" onclick="enlargeImage(this)">
+          <img src="imgs/aincgreen.gif" alt="Image of the green aINC logo" onclick="enlargeImage(this)">
+          <button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+          <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+        </div>
         <h2>BuddhaBot!</h2>
         <p>at0m and I team up to create BuddhaBot! and the aINC community to push back against blizzard's efforts to ban chat bots.</p>
       </div>
-      <!-- Slide 4 -->
-      <div class="carousel-item" onclick="scrollToCard(3)">
+   
+      <!-- Card 4 -->
+      <div class="card red-pattern" id="card-3">
+        <div class="card-slider">
+          <img src="imgs/dgmbot.jpg" alt="Image of diablo1gamebot" class="active" onclick="enlargeImage(this)">
+          <img src="imgs/mesiahbotmain.JPG" alt="Image of MesiahBot" onclick="enlargeImage(this)">
+          <img src="imgs/RaiFloodlol.jpg" alt="Image of RaiFlood" onclick="enlargeImage(this)">
+          <img src="imgs/sb01.png" alt="Image of SentryBot, showing Eurijk!, me, Moonshine, Zorm" onclick="enlargeImage(this)">
+          <img src="imgs/vlaim.jpg" alt="Image of AIM/OSCAR development board on vL forums" onclick="enlargeImage(this)">
+          <button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+          <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+        </div>
         <h2>XBot, diablo1gamebot, EZChat, RaiFlood, MesiahBot</h2>
         <p>Bot development was peaking. I joined in community projects, and even made a foundational AIM/Bnet hybrid client (MesiahBot), with SmarterChild style AI that could launch exploit attacks against AIM users who were rude in chat, causing them to disconnect!</p>
       </div>
-      <!-- Slide 5 -->
-      <div class="carousel-item" onclick="scrollToCard(4)">
+   
+      <!-- Card 5 -->
+      <div class="card red-pattern" id="card-4">
+        <div class="card-slider">
+          <img src="imgs/w2gatesub.jpg" alt="Image of War2 Gate running Subbot" class="active" onclick="enlargeImage(this)">
+          <img src="imgs/war2gateher.png" alt="Image of War2 Gate running Heresy Bot" onclick="enlargeImage(this)">
+          <button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+          <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+        </div>
         <h2>War2 Gate, ModuleBot</h2>
         <p>After a long hiatus, I return to create new projects with longevity in mind.</p>
       </div>
-      <!-- Slide 6 -->
-      <div class="carousel-item" onclick="scrollToCard(5)">
+   
+      <!-- Card 6 -->
+      <div class="card red-pattern" id="card-5">
+        <div class="card-slider">
+          <img src="imgs/stonerbotdlx2.jpg" alt="Image of StonerBot" class="active" onclick="enlargeImage(this)">
+          <img src="imgs/stonerbotdlx1.jpg" alt="Image of StonerBot" onclick="enlargeImage(this)">
+          <img src="imgs/stonerbotconfig11.png" alt="Image of StonerBot configurations" onclick="enlargeImage(this)">
+          <img src="imgs/stonerbotgames.jpg" alt="Image of StonerBot games console" onclick="enlargeImage(this)">
+          <button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
+          <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
+        </div>
         <h2>StonerBot</h2>
         <p>My last battle.net project. Longevity focused & inspired by some of the dopest people on bnet! Fully featured, it even includes StonerMode for cool color shifting effects and a "tech support bot" troll AI with a stoner persona XD</p>
       </div>
     </div>
-    <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
-    <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
-  </div>
- 
-  <!-- Main Content -->
-  <div class="container">
-    <!-- Card 1 -->
-    <div class="card red-pattern" id="card-0">
-      <div class="card-slider">
-        <img src="imgs/Ne0Bot3.2lol.gif" alt="Image of Ne0Bot 3.2" class="active" onclick="enlargeImage(this)">
-		<img src="imgs/ne0bot2.1scfreak.jpg" alt="Image of Ne0Bot2.1 download link on scfreak" onclick="enlargeImage(this)">
-		<img src="imgs/bastardbot.gif" alt="Image of BaSTaRD Bot (hexed to Roman Chat)" onclick="enlargeImage(this)">
-        <img src="imgs/vlbbot.gif" alt="Image of vLBBot 1.0(hexed to Ne0Bot 2.1)" onclick="enlargeImage(this)">
-		<button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
-        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
-      </div>
-      <h2>Roman Chat, Roman Binary Bot Plugin, Ne0Bot</h2>
-      <p>My first public releases were hex edited bots and *borrowed* source code from other authors XD</p>
-    </div>
- 
-    <!-- Card 2 -->
-    <div class="card red-pattern" id="card-1">
-      <div class="card-slider">
-        <img src="imgs/mbbot1.gif" alt="Image of MBBot" class="active" onclick="enlargeImage(this)">
-        <img src="imgs/MBBot.png" alt="Image of MBBot splash/loading screen" onclick="enlargeImage(this)">
-        <button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
-        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
-      </div>
-      <h2>MBBot</h2>
-      <p>My first scratch built battle.net binary chat bot. I could code but still hadn't learned photoshop :P</p>
-    </div>
- 
-    <!-- Card 3 -->
-    <div class="card red-pattern" id="card-2">
-      <div class="card-slider">
-        <img src="imgs/buddhabot2020.jpg" alt="Image of Buddha Bot" class="active" onclick="enlargeImage(this)">
-        <img src="imgs/aincphactorx1.jpg" alt="Image of the archived remnants of the phactorx website" onclick="enlargeImage(this)">
-		<img src="imgs/ainc404.png" alt="Image of the custom 404 page error" onclick="enlargeImage(this)">
-		<img src="imgs/aincgreen.gif" alt="Image of the green aINC logo" onclick="enlargeImage(this)">
-		<button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
-        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
-      </div>
-      <h2>BuddhaBot!</h2>
-      <p>at0m and I team up to create BuddhaBot! and the aINC community to push back against blizzard's efforts to ban chat bots.</p>
-    </div>
- 
-    <!-- Card 4 -->
-    <div class="card red-pattern" id="card-3">
-      <div class="card-slider">
-        <img src="imgs/dgmbot.jpg" alt="Image of diablo1gamebot" class="active" onclick="enlargeImage(this)">
-		<img src="imgs/mesiahbotmain.JPG" alt="Image of MesiahBot" onclick="enlargeImage(this)">
-        <img src="imgs/RaiFloodlol.jpg" alt="Image of RaiFlood" onclick="enlargeImage(this)">
-		<img src="imgs/sb01.png" alt="Image of SentryBot, showing Eurijk!, me, Moonshine, Zorm" onclick="enlargeImage(this)">
-		<img src="imgs/vlaim.jpg" alt="Image of AIM/OSCAR development board on vL forums" onclick="enlargeImage(this)">
-		<button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
-        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
-      </div>
-      <h2>XBot, diablo1gamebot, EZChat, RaiFlood, MesiahBot</h2>
-      <p>Bot development was peaking. I joined in community projects, and even made a foundational AIM/Bnet hybrid client (MesiahBot), with SmarterChild style AI that could launch exploit attacks against AIM users who were rude in chat, causing them to disconnect!</p>
-    </div>
- 
-    <!-- Card 5 -->
-    <div class="card red-pattern" id="card-4">
-      <div class="card-slider">
-        <img src="imgs/w2gatesub.jpg" alt="Image of War2 Gate running Subbot" class="active" onclick="enlargeImage(this)">
-        <img src="imgs/war2gateher.png" alt="Image of War2 Gate running Heresy Bot" onclick="enlargeImage(this)">
-        <button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
-        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
-      </div>
-      <h2>War2 Gate, ModuleBot</h2>
-      <p>After a long hiatus, I return to create new projects with longevity in mind.</p>
-    </div>
- 
-    <!-- Card 6 -->
-    <div class="card red-pattern" id="card-5">
-      <div class="card-slider">
-        <img src="imgs/stonerbotdlx2.jpg" alt="Image of StonerBot" class="active" onclick="enlargeImage(this)">
-        <img src="imgs/stonerbotdlx1.jpg" alt="Image of StonerBot" onclick="enlargeImage(this)">
-		<img src="imgs/stonerbotconfig11.png" alt="Image of StonerBot configurations" onclick="enlargeImage(this)">
-		<img src="imgs/stonerbotgames.jpg" alt="Image of StonerBot games console" onclick="enlargeImage(this)">
-		<button class="card-control prev" onclick="event.stopPropagation(); changeCardSlide(this, -1)">&#10094;</button>
-        <button class="card-control next" onclick="event.stopPropagation(); changeCardSlide(this, 1)">&#10095;</button>
-      </div>
-      <h2>StonerBot</h2>
-      <p>My last battle.net project. Longevity focused & inspired by some of the dopest people on bnet! Fully featured, it even includes StonerMode for cool color shifting effects and a "tech support bot" troll AI with a stoner persona XD</p>
-    </div>
   </div>
  
   <footer class="green-line">
-    <p>&copy; Newtons 3rd Law - 1337. All rights reserved.</p>
+    <p>&copy; 1337. All rights reserved.</p>
   </footer>
  
   <script>
@@ -640,7 +669,7 @@
       return Math.random() > 0.5 ? '0' : '1';
     }
  
-    // Function to create the binary overlay
+    // Function to create the header binary overlay
     function createBinaryOverlay() {
       const overlay = document.getElementById('binary-overlay');
       const columns = Math.floor(window.innerWidth / 30);
@@ -651,6 +680,72 @@
         span.textContent = getRandomBinary();
         overlay.appendChild(span);
       }
+    }
+
+    // Matrix Rain Effect Implementation (Rising from Bottom to Top)
+    const matrixCanvas = document.getElementById('matrix-canvas');
+    const matrixCtx = matrixCanvas.getContext('2d');
+    let matrixDrops = [];
+    const matrixFontSize = 13; // matches 0.8rem header font size
+
+    function resizeMatrixCanvas() {
+      const wrapper = matrixCanvas.parentElement;
+      matrixCanvas.width = wrapper.clientWidth;
+      matrixCanvas.height = wrapper.clientHeight;
+
+      const colWidth = 22;
+      const numCols = Math.floor(matrixCanvas.width / colWidth);
+
+      matrixDrops = [];
+      for (let i = 0; i < numCols; i++) {
+        matrixDrops[i] = {
+          x: i * colWidth + 10,
+          y: matrixCanvas.height + Math.random() * matrixCanvas.height, // Start below or along the bottom
+          speed: Math.random() * 0.5 + 0.8,
+          length: Math.floor(Math.random() * 10) + 12
+        };
+      }
+    }
+
+    function drawMatrixRain() {
+      matrixCtx.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      matrixCtx.font = '0.8rem monospace';
+      matrixCtx.textAlign = 'center';
+
+      for (let i = 0; i < matrixDrops.length; i++) {
+        const drop = matrixDrops[i];
+
+        for (let j = 0; j < drop.length; j++) {
+          // Head is at drop.y (moving up), trail elements stack downward below the head
+          const charY = drop.y + (j * matrixFontSize);
+
+          if (charY >= -matrixFontSize && charY <= matrixCanvas.height + matrixFontSize) {
+            // Minimum opacity set to 0.5 matching the header overlay, capping brightness at the head
+            const alpha = Math.max(0.5, 1.0 - (j / drop.length) * 0.5);
+
+            if (j === 0) {
+              matrixCtx.fillStyle = `rgba(150, 255, 150, ${alpha})`; // Leading head (now at top of stream)
+            } else {
+              matrixCtx.fillStyle = `rgba(0, 180, 0, ${alpha})`;
+            }
+
+            const char = (Math.abs(Math.sin(i + charY)) > 0.5) ? '1' : '0';
+            matrixCtx.fillText(char, drop.x, charY);
+          }
+        }
+
+        // Move upward by decreasing y coordinate
+        drop.y -= drop.speed * 1.5;
+
+        // Reset drop to bottom when it scrolls past the top edge
+        if (drop.y + (drop.length * matrixFontSize) < 0) {
+          drop.y = matrixCanvas.height + Math.floor(Math.random() * 200) + 50;
+          drop.speed = Math.random() * 0.5 + 0.8;
+          drop.length = Math.floor(Math.random() * 10) + 12;
+        }
+      }
+
+      requestAnimationFrame(drawMatrixRain);
     }
       
     // Function to enlarge an image
@@ -672,10 +767,16 @@
       startCardSliders(); // Resume card slider fading when overlay is closed
     }
  
-    // Initialize binary overlay and card sliders on page load
+    // Initialize binary overlay, matrix rain, and card sliders on page load
     window.addEventListener('load', () => {
       createBinaryOverlay();
+      resizeMatrixCanvas();
+      requestAnimationFrame(drawMatrixRain);
       startCardSliders();
+    });
+
+    window.addEventListener('resize', () => {
+      resizeMatrixCanvas();
     });
   </script>
 
