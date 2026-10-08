@@ -259,7 +259,7 @@
     /* Title */
     header h1 {
       font-size: 3rem;
-      animation: glow 2s infinite alternate, glitch 2s infinite;
+      animation: glow 2s infinite alternate, glitch 2.7s infinite ease-in-out;
       position: relative;
       z-index: 2;
     }
@@ -274,28 +274,47 @@
       }
     }
  
-    /* Glitch Effect */
+    /* Multi-Directional Green-Only Glitch Effect (Subdued Skew & Bouncing) */
     @keyframes glitch {
       0%, 100% {
-        transform: translate(0);
+        transform: translate(0, 0) skew(0deg);
+        text-shadow: 0 0 4px #00ff00, 0 0 5px #00ff00;
       }
-      25% {
-        transform: translate(-2px, 6px);
+      10% {
+        transform: translate(-2px, 1px) skew(-2deg);
+        text-shadow: 2px -1px 0px #00ff00, -2px 2px 0px #00aa00;
       }
-      35% {
-        transform: translate(-3px, 6px);
+      20% {
+        transform: translate(2px, -2px) skew(1.5deg);
+        text-shadow: -3px 1px 0px #33ff33, 2px -1px 0px #004d00;
+      }
+      30% {
+        transform: translate(-3px, -1px) skew(-1deg);
+        text-shadow: 1px 2px 0px #00ff00, -1px -2px 0px #96ff96;
+      }
+      40% {
+        transform: translate(2px, 2px) skew(2.5deg);
+        text-shadow: -2px -2px 0px #00cc00, 2px 2px 0px #00ff00;
       }
       50% {
-        transform: translate(2px, -2px);
+        transform: translate(-1px, -2px) skew(-1.5deg);
+        text-shadow: 2px 2px 0px #33ff33, -2px -2px 0px #004d00;
       }
-      65% {
-        transform: translate(7px, -3px);
+      60% {
+        transform: translate(2px, 2px) skew(1deg);
+        text-shadow: -1px -2px 0px #00ff00, 1px 2px 0px #00aa00;
       }
-      69% {
-        transform: translate(5px, -3px);
+      70% {
+        transform: translate(-3px, -1px) skew(-2.5deg);
+        text-shadow: 2px 1px 0px #00cc00, -2px -1px 0px #00ff00;
       }
-      75% {
-        transform: translate(-2px, -2px);
+      80% {
+        transform: translate(2px, 2px) skew(1.5deg);
+        text-shadow: -2px -1px 0px #96ff96, 2px 1px 0px #004d00;
+      }
+      90% {
+        transform: translate(-2px, 1px) skew(-1deg);
+        text-shadow: 1px -1px 0px #00ff00, -1px 1px 0px #33ff33;
       }
     }
  
@@ -615,8 +634,8 @@
       showSlide(currentSlide);
     }
  
-    // Auto-advance top carousel every 6 seconds
-    setInterval(nextSlide, 6000);
+    // Auto-advance top carousel every 7 seconds
+    setInterval(nextSlide, 7000);
  
     // Scroll to Corresponding Card
     function scrollToCard(index) {
@@ -682,7 +701,7 @@
       }
     }
 
-    // Matrix Rain Effect Implementation (Wider speed range: slower minimum, faster maximum)
+    // Matrix Rain Effect (Wider speed range: slower minimum, faster maximum)
     const matrixCanvas = document.getElementById('matrix-canvas');
     const matrixCtx = matrixCanvas.getContext('2d');
     let matrixDrops = [];
